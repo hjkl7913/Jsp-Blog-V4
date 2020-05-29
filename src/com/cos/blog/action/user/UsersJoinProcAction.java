@@ -54,8 +54,14 @@ public class UsersJoinProcAction implements Action{
 		
 		// 4. index.jsp 페이지로 이동
 		if(result == 1) {
-			RequestDispatcher dis = request.getRequestDispatcher("index.jsp");
-			dis.forward(request, response);
+			//첫번째 방법 (잘안씀) 
+			//response.sendRedirect("/blog/user?cmd=login");
+			
+			//두번째 방법 (자바스크립트로 이동 메시지창도 띄울수있음)
+			Script.href("회원가입에 성공하였습니다.", "/blog/user?cmd=login", response);
+			
+//			RequestDispatcher dis = request.getRequestDispatcher("user/login.jsp");
+//			dis.forward(request, response);
 		}else {
 			// 이렇게 해도되지만 정보가 남아있지않음 
 			//RequestDispatcher dis = request.getRequestDispatcher("user?cmd=joinProc");
