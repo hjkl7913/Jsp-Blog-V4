@@ -24,6 +24,43 @@ public class UsersRepository {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
+	public Users findByUsernameAndPassword(String username, String password) {
+		final String SQL ="SELECT id, username, email, address, userProfile ,userRole, createDate FROM users WHERE username = ? AND password = ?";
+		Users user = null;
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			// 물음표 완성하기
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			
+			// if 돌려서 rs -> java 오브젝트에 집어넣기
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				user = new Users(); //찾앗을때만 new 함
+				user.setId(rs.getInt("id"));
+				user.setUsername(rs.getString("username"));
+				user.setEmail(rs.getString("email"));
+				user.setAddress(rs.getString("address"));
+				user.setUserProfile(rs.getString("userProfile"));
+				user.setUserRole(rs.getString("userRole"));
+				user.setCreateDate(rs.getTimestamp("CreateDate"));
+				
+			}
+			return user;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG+"findByUsernameAndPassword : "+e.getMessage());
+			
+		} finally {
+			DBConn.close(conn, pstmt ,rs);
+		}
+		
+		return null;
+	}
+	
+	
 	public int save(Users user) {
 		final String SQL ="insert into users(id, username, password, email, address, userRole, createDate) VALUES(USERS_SEQ.nextval,?,?,?,?,?,sysdate)";
 		

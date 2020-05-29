@@ -69,8 +69,5 @@ public class UsersJoinProcAction implements Action{
 			
 			Script.back("회원가입에 실패하였습니다.", response);
 		}
-		
-		
 	}
-	
 }

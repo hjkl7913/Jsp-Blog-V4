@@ -39,7 +39,7 @@
 		</div>
 		
 
-		<button type="submit" class="btn btn-primary">Submit</button>
+		<button type="submit" class="btn btn-primary">회원가입 완료</button>
 	</form>
 </div>
 
