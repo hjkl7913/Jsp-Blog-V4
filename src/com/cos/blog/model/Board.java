@@ -16,6 +16,6 @@ public class Board {
 	private int userId;
 	private String title;
 	private String content;
-	private int readCount;
+	private int readCount; //조회수
 	private Timestamp createDate;
 }
