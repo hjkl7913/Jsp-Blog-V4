@@ -4,15 +4,18 @@
     
  <%@ include file="include/nav.jsp" %>
  
- <%
-  Users principal = (Users)session.getAttribute("principal");
- %>
+<%--  <% --%>
+ 	
+<!--    	Users principal = (Users)session.getAttribute("principal"); -->
+<%--  %> --%>
  
-<h1>
-	<% if(principal != null) {%>
-		<%= principal.getUsername()%>
-	<% } %>
-</h1>
+<!-- <h1> -->
+<%-- 	<% if(principal != null) {%> --%>
+<%-- 		<%= principal.getUsername()%>  --%>
+<%-- 	<% } %> --%>
+<!-- </h1> -->
+
+
  
 <div class="container">
 	<div class="card m-2" style="width:100%">
@@ -38,8 +41,8 @@
       	<a href="#" class="btn btn-primary stretched-link">상세보기</a>
     	</div>
     </div>
+    
 </div>
-
 
 <%@ include file="include/footer.jsp" %>
 

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Script {
 	public static void back(String msg, HttpServletResponse response) {
-		PrintWriter out;
+		
 		try {
 			
 			// 
@@ -15,7 +15,7 @@ public class Script {
 			response.setContentType("text/html; charset=utf-8");
 			
 			//버퍼를 달아서 자바스크립트
-			out = response.getWriter();
+			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('"+msg+"');");
 			out.println("history.back();");
