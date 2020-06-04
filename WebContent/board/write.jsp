@@ -3,6 +3,7 @@
 
 <%@ include file="../include/nav.jsp"%>
 
+
 <%@ include file="../include/authentication.jsp"%>
 
 <div class="container">
@@ -13,10 +14,20 @@
 
 		<div class="form-group">
 			<label for="content">Content:</label>
-			<textarea class="form-control" rows="5" id="content" name="content"></textarea> <!-- textarea는 $(#id).text로 찾음 -->
+			<textarea class="form-control" rows="5" id="summernote" name="content"></textarea> <!-- textarea는 $(#id).text로 찾음 -->
 		</div>
 
 		<button type="submit" class="btn btn-danger">글쓰기 등록</button>
 	</form>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote({
+        	 tabsize: 2,
+             height: 300
+        });
+    });
+  </script>
+
 <%@ include file="../include/footer.jsp"%>

@@ -2,9 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 
-
 <%@ include file="../include/nav.jsp"%>
-
 
 
 <div class="container">

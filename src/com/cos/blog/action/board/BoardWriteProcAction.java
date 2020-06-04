@@ -22,7 +22,7 @@ public class BoardWriteProcAction implements Action{
 		HttpSession session = request.getSession();
 		if(session.getAttribute("principal") ==null) {
 			Script.getMessage("잘못된 접근입니다.", response);
-			return; // 여기서 return 이 었으면 코드를 아래를 타고 내려간다.
+			return; // 여기서 return 이 없으면 코드를 아래를 타고 내려간다.
 		}
 		
 		Users principal = (Users) session.getAttribute("principal");
@@ -35,7 +35,9 @@ public class BoardWriteProcAction implements Action{
 				request.getParameter("title") == null ||
 				request.getParameter("content").equals("") ||
 				request.getParameter("content") == null 
+				
 		) {
+			Script.back("글쓰기에 실패하였습니다", response);
 			return;
 		}
 		// 2번 requset에 title 값과 content 값 받기
@@ -45,8 +47,6 @@ public class BoardWriteProcAction implements Action{
 		
 		// 3번 title값과 content, principal.getId() 값을 Board 오브젝트에 담기
 			
-			
-		
 			Board board = Board.builder()
 					.userId(principal.getId())
 					.title(title)
@@ -54,14 +54,14 @@ public class BoardWriteProcAction implements Action{
 					.readCount(0)
 					.build();
 			
-			
+
 		// 4번 BoardRepository연결해서 save(board) 함수 호출
 		BoardRepository boardRepository = BoardRepository.getInstance();
 		int result = boardRepository.save(board);
 		// 5번 result == 1이면 성공로직(index.jsp 로 이동)
 		
 		if(result == 1) {
-		Script.href("글쓰기 등록 완료", "/blog/board?cmd=home", response);
+		Script.href("글쓰기에  성공하였습니다.", "/blog/board?cmd=home", response);
 		}
 		// 6번 result != 1이면 실패로직(history.back())
 		else { 
