@@ -18,4 +18,11 @@ public class Board {
 	private String content;
 	private int readCount; //조회수
 	private Timestamp createDate;
+	
+	
+//	public String getTitle() {
+//		title = title.replaceAll("<", "&lt;").replaceAll(">", "%gt;");
+//		return title;
+//		
+//	}
 }

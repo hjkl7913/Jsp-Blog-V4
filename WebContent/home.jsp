@@ -19,7 +19,7 @@
 	<c:forEach var="board" items="${boards}">
 		<div class="card m-2" style="width: 100%">
 			<div class="card-body">
-				<h4 class="card-title">${board.title}</h4>
+				<h4 class="card-title">${board.title}</h4><!-- el 표현식은 변수를 호출하면 getter를 호출함 -->
 				<p class="card-text">${board.content}</p>
 				<a href="#" class="btn btn-primary stretched-link">상세보기</a>
 			</div>
