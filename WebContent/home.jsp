@@ -21,7 +21,7 @@
 			<div class="card-body">
 				<h4 class="card-title">${board.title}</h4><!-- el 표현식은 변수를 호출하면 getter를 호출함 -->
 				<p class="card-text">${board.content}</p>
-				<a href="#" class="btn btn-primary stretched-link">상세보기</a>
+				<a href="/blog/board?cmd=detail&id=${board.id }" class="btn btn-primary stretched-link">상세보기</a>
 			</div>
 		</div>
 	</c:forEach>
