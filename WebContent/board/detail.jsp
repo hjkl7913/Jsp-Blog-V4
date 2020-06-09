@@ -8,7 +8,7 @@
 	
 	<c:if test="${sessionScope.principal.id == dto.board.userId}">
 	<a href="/blog/board?cmd=update&id=${dto.board.id}" class="btn btn-warning">수정</a>
-	<button class="btn btn-danger">삭제</button>
+	<button class="btn btn-danger" onclick="deleteById(${dto.board.id})">삭제</button>
 	</c:if>
 	
 	<br/><br/>
@@ -22,5 +22,7 @@
 	</div>
 
 </div>
+
+<script src="/blog/js/detail.js"></script>
 
 <%@ include file="../include/footer.jsp"%>

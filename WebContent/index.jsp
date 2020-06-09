@@ -6,3 +6,4 @@
 %>
 <c:redirect url="/board?cmd=home" /> 
 
+

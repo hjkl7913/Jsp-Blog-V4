@@ -11,12 +11,9 @@ import com.cos.blog.action.Action;
 import com.cos.blog.dto.DetailResponseDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.repository.BoardRepository;
-import com.cos.blog.util.HtmlParser;
 import com.cos.blog.util.Script;
 
-public class BoardDetailAction implements Action{
-	
-	private String preview = null;
+public class BoardUpdateAction implements Action{
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,12 +31,8 @@ public class BoardDetailAction implements Action{
 		DetailResponseDto dto = boardRepository.findById(id);
 		
 		if(dto != null) {
-
-			preview = HtmlParser.getYoutubePreview(dto.getBoard().getContent());
-			dto.getBoard().setContent(preview);
-			
 			request.setAttribute("dto", dto);
-			RequestDispatcher dis = request.getRequestDispatcher("board/detail.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("board/update.jsp");
 			dis.forward(request, response);
 		} else {
 			Script.back("잘못된 접근입니다.", response);

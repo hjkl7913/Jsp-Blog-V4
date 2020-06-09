@@ -24,14 +24,17 @@ public class BoardHomeAction implements Action{
 		BoardRepository boardRepository = 
 				BoardRepository.getInstance();
 		List<Board> boards = boardRepository.findAll();
+		
+		
 
+		
 		// 본문 짧게 가공하기
 		for (Board board : boards) {
 			String preview = HtmlParser.getContentPreview(board.getContent());
 			board.setContent(preview);
 		}
-
-
+			
+		
 		request.setAttribute("boards", boards);
 		
 		// 3. 이동 home.jsp
