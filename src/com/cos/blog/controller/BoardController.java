@@ -11,6 +11,7 @@ import com.cos.blog.action.Action;
 import com.cos.blog.action.board.BoardDeleteAction;
 import com.cos.blog.action.board.BoardDetailAction;
 import com.cos.blog.action.board.BoardHomeAction;
+import com.cos.blog.action.board.BoardSearchAction;
 import com.cos.blog.action.board.BoardUpdateAction;
 import com.cos.blog.action.board.BoardUpdateProcAction;
 import com.cos.blog.action.board.BoardWriteAction;
@@ -71,6 +72,9 @@ public class BoardController extends HttpServlet {
 		}else if(cmd.equals("delete")) {
 			// Home 페이지로 이동
 			return new BoardDeleteAction(); // 삭제하기
+		}else if(cmd.equals("search")) {
+			// Home 페이지로 이동
+			return new BoardSearchAction(); // 삭제하기
 		}
 		return null;
 	}

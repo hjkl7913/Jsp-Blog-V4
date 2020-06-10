@@ -116,15 +116,16 @@ public class UsersRepository {
 	}
 	
 	public int update(Users user) {
-		final String SQL ="UPDATE users SET email = ?, address=? WHERE id=? ";
+		final String SQL ="UPDATE users SET password=?, email = ?, address=?  WHERE id=? ";
 		
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			// 물음표 완성하기
-			pstmt.setString(1, user.getEmail());
-			pstmt.setString(2, user.getAddress());
-			pstmt.setInt(3, user.getId());
+			pstmt.setString(1, user.getPassword());
+			pstmt.setString(2, user.getEmail());
+			pstmt.setString(3, user.getAddress());
+			pstmt.setInt(4, user.getId());
 			
 			return pstmt.executeUpdate();
 		} catch (Exception e) {

@@ -26,6 +26,197 @@ public class BoardRepository {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
+	
+	public int findBoard(String keyword) {
+		int result2 = 0;
+		final String SQL ="SELECT count(*) FROM board WHERE title Like ? OR content Like ?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			// 물음표 완성하기
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setString(2, "%"+keyword+"%");
+			
+			
+			// while 돌려서 rs -> java 오브젝트에 집어넣기
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result2 = rs.getInt(1);  
+				System.out.println("result2 : "+result2);
+			
+			}
+			
+			
+			return result2;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG+"findBoard(keyword) : "+e.getMessage());
+			
+		} finally {
+			DBConn.close(conn, pstmt ,rs);
+		}
+		
+		return -1;
+	}
+	
+	public List<Board> findAll(int page, String keyword) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT /*+ INDEX_DESC(BOARD SYS_C007666)*/id, ");
+		sb.append("userId, title, content, readCount, createDate ");
+		sb.append("FROM board ");
+		sb.append("WHERE title like ? OR content like ? ");		
+		sb.append("OFFSET ? ROWS FETCH FIRST 3 ROWS ONLY ");
+		
+		
+		final String SQL = sb.toString();
+		List<Board> boards = new ArrayList<>();
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			
+			// 물음표 완성하기
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setString(2, "%"+keyword+"%");
+			pstmt.setInt(3, page*3);
+			
+			
+			// while 돌려서 rs -> java 오브젝트에 집어넣기
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Board board = new Board(
+						rs.getInt("id"),
+						rs.getInt("userId"),
+						rs.getString("title"),
+						rs.getString("content"),
+						rs.getInt("readCount"),
+						rs.getTimestamp("createDate")
+				);
+				boards.add(board);
+			}
+			
+			return boards;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG+"findAll(page, keyword) : "+e.getMessage());
+			
+		} finally {
+			DBConn.close(conn, pstmt ,rs);
+		}
+		
+		return null;
+	}
+	
+	
+	
+	public int addReadCount(int id) {
+
+			final String SQL ="UPDATE board SET readCount = readCount+1  WHERE id = ?";
+			
+			//board 오브젝트와 users의 username을 DetailResponseDto오브젝트를 새로 만들어서 안에 넣어서 리턴함
+		
+			
+			try {
+				conn = DBConn.getConnection();
+				pstmt = conn.prepareStatement(SQL);
+				// 물음표 완성하기
+				
+				pstmt.setInt(1, id);
+				
+				
+				// if 돌려서 rs -> java 오브젝트에 집어넣기
+				
+				return pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(TAG+"addReadCount : "+e.getMessage());
+				
+			} finally {
+				DBConn.close(conn, pstmt ,rs);
+			}
+			
+			return -1;
+		}
+	
+	public int findBoard() {
+		int result = 0;
+		final String SQL ="SELECT count(*) FROM board";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			// 물음표 완성하기
+			
+			// while 돌려서 rs -> java 오브젝트에 집어넣기
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);  
+				System.out.println("result : "+result);
+			
+			}
+			
+			
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG+"findBoard : "+e.getMessage());
+			
+		} finally {
+			DBConn.close(conn, pstmt ,rs);
+		}
+		
+		return -1;
+	}
+	
+	public List<Board> findAll(int page) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT /*+ INDEX_DESC(BOARD SYS_C007666)*/id, ");
+		sb.append("userId, title, content, readCount, createDate ");
+		sb.append("FROM board ");
+		sb.append("OFFSET ? ROWS FETCH FIRST 3 ROWS ONLY ");
+		
+		
+		final String SQL = sb.toString();
+		List<Board> boards = new ArrayList<>();
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			
+			// 물음표 완성하기
+			pstmt.setInt(1, page*3);
+			
+			
+			// while 돌려서 rs -> java 오브젝트에 집어넣기
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Board board = new Board(
+						rs.getInt("id"),
+						rs.getInt("userId"),
+						rs.getString("title"),
+						rs.getString("content"),
+						rs.getInt("readCount"),
+						rs.getTimestamp("createDate")
+				);
+				boards.add(board);
+			}
+			
+			return boards;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG+"findAll(page) : "+e.getMessage());
+			
+		} finally {
+			DBConn.close(conn, pstmt ,rs);
+		}
+		
+		return null;
+	}
+	
+	
 	public int save(Board board) {
 		final String SQL ="insert into board(id,userId,title,content,readCount,createDate) VALUES(BOARD_SEQ.nextval,?,?,?,?,sysdate)";
 		

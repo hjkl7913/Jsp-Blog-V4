@@ -13,6 +13,7 @@ import com.cos.blog.action.Action;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.Users;
 import com.cos.blog.repository.UsersRepository;
+import com.cos.blog.util.SHA256;
 import com.cos.blog.util.Script;
 
 public class UsersUpdateProcAction implements Action{
@@ -41,13 +42,19 @@ public class UsersUpdateProcAction implements Action{
 		}
 		// 1. 파라메터 받기 (X-www-form-urlencoded 라는 MIME 타입 key=value)
 		int id = Integer.parseInt(request.getParameter("id"));
-		String password = request.getParameter("password");
+		
+		String username = request.getParameter("username");
+		
+		String rawPassword = request.getParameter("password");
+		String password = SHA256.encodeSha256(rawPassword);
+		
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
 		
 		// 2. User 오브젝트 변환
 		Users user = Users.builder()
 				.id(id)
+				.username(username)
 				.password(password)
 				.email(email)
 				.address(address)
@@ -63,13 +70,14 @@ public class UsersUpdateProcAction implements Action{
 			//response.sendRedirect("/blog/user?cmd=login");
 			
 			//두번째 방법 (자바스크립트로 이동 메시지창도 띄울수있음)
-			Script.href("회원정보  수정에 성공하였습니다.", "/blog/board?cmd=home", response);
+			Script.href("회원정보  수정에 성공하였습니다.", "/blog/board?cmd=home&page=0", response);
 			
 			
 			//session.invalidate();
 			//System.out.println("삭제됬는가?:"+principal);
 			session.setAttribute("principal", user);
 			Users principal = (Users) session.getAttribute("principal");
+			
 			System.out.println("새로만들어졌는가?:"+principal);
 			
 			

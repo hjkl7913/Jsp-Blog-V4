@@ -61,7 +61,7 @@ public class BoardWriteProcAction implements Action{
 		// 5번 result == 1이면 성공로직(index.jsp 로 이동)
 		
 		if(result == 1) {
-		Script.href("글쓰기에  성공하였습니다.", "/blog/board?cmd=home", response);
+		Script.href("글쓰기에  성공하였습니다.", "/blog/board?cmd=home&page=0", response);
 		}
 		// 6번 result != 1이면 실패로직(history.back())
 		else { 
