@@ -48,15 +48,13 @@ public class BoardSearchAction implements Action{
 			board.setContent(preview);
 		}
 		
-		
 		request.setAttribute("boards", boards);
 		
-		int result2 = boardRepository.findBoard(keyword);
+		int result = boardRepository.findBoardCount(keyword);
 		//System.out.println("BoardHomeAction : result: "+result);
 		
 		
-		
-		request.setAttribute("result2",result2);
+		request.setAttribute("result",result);
 		
 		// 3. 이동 home.jsp
 		RequestDispatcher dis = request.getRequestDispatcher("home.jsp");

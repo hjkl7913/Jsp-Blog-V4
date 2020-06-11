@@ -32,8 +32,8 @@ public class BoardDetailAction implements Action {
 		int id = Integer.parseInt(request.getParameter("id")); // request.getparameter 는 string
 		 BoardRepository boardRepository = BoardRepository.getInstance();
 		
-		//상세보기 클릭시 조회수 올리기
 		
+		//새로고침 조회수 증가 쿠키로 막기
 		 if (cookies != null) {
 			 for (int i = 0; i < cookies.length; i++) {
 				if(cookies[i].getName().equals("|"+id+"|")) {
@@ -45,7 +45,9 @@ public class BoardDetailAction implements Action {
 		 
 		 if(viewCookie == null) {
 			 Cookie readCookie = new Cookie("|"+id+"|","readCookie");
-			// response.addCookie(readCookie);
+			 response.addCookie(readCookie);
+			 
+			//상세보기 클릭시 조회수 올리기
 			 int result = boardRepository.addReadCount(id);
 		 }
 		 

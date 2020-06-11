@@ -74,7 +74,7 @@ public class BoardController extends HttpServlet {
 			return new BoardDeleteAction(); // 삭제하기
 		}else if(cmd.equals("search")) {
 			// Home 페이지로 이동
-			return new BoardSearchAction(); // 삭제하기
+			return new BoardSearchAction(); // 검색하기
 		}
 		return null;
 	}

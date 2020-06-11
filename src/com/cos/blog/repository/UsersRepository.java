@@ -24,6 +24,28 @@ public class UsersRepository {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
+	public int update(int id, String userProfile) {
+		final String SQL ="UPDATE users SET userProfile=?  WHERE id=? ";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			// 물음표 완성하기
+			pstmt.setString(1, userProfile);
+			pstmt.setInt(2, id);
+			
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG+"update(id, userProfile) : "+e.getMessage());
+			
+		} finally {
+			DBConn.close(conn, pstmt);
+		}
+		
+		return -1;
+	}
+	
 	
 	public int findByUsername(String username) {
 		final String SQL ="SELECT count(*) FROM users WHERE username = ?";
@@ -183,25 +205,33 @@ public class UsersRepository {
 	}
 	
 	public Users findById(int id) {
-		final String SQL ="";
-		Users user = new Users();
-		
+		final String SQL = "SELECT * FROM users WHERE id = ?";
+		Users user = null;
+
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			// 물음표 완성하기
-			
-			// if 돌려서 rs -> java 오브젝트에 집어넣기
-			
+			pstmt.setInt(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				user = Users.builder()
+						.id(rs.getInt("id"))
+						.username(rs.getString("username"))
+						.email(rs.getString("email"))
+						.address(rs.getString("address"))
+						.userProfile(rs.getString("userProfile"))
+						.createDate(rs.getTimestamp("createDate"))
+						.build();
+			}
 			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(TAG+"findById : "+e.getMessage());
-			
 		} finally {
-			DBConn.close(conn, pstmt ,rs);
+			DBConn.close(conn, pstmt, rs);
 		}
-		
+
 		return null;
 	}
 }

@@ -13,6 +13,8 @@ import com.cos.blog.action.user.UsersJoinProcAction;
 import com.cos.blog.action.user.UsersLoginAction;
 import com.cos.blog.action.user.UsersLoginProcAction;
 import com.cos.blog.action.user.UsersLogoutAction;
+import com.cos.blog.action.user.UsersProfileUploadAction;
+import com.cos.blog.action.user.UsersProfileUploadProcAction;
 import com.cos.blog.action.user.UsersUpdateAction;
 import com.cos.blog.action.user.UsersUpdateProcAction;
 import com.cos.blog.action.user.UsersUsernameCheckAction;
@@ -68,10 +70,14 @@ public class UsersController extends HttpServlet {
 		}else if (cmd.equals("loginProc")) {
 			// 회원 로그인을 수행한 후 -> 세션에 등록하고 -> index.jsp 로 이동
 			return new UsersLoginProcAction();
-		}else if (cmd.equals("logout")) {
+		}else if (cmd.equals("logout")) { //로그아웃
 			return new UsersLogoutAction();
-		}else if (cmd.equals("usernameCheck")) {
+		}else if (cmd.equals("usernameCheck")) { 
 			return new UsersUsernameCheckAction();
+		}else if (cmd.equals("profileUpload")) {
+			return new UsersProfileUploadAction();
+		}else if (cmd.equals("profileUploadProc")) {
+			return new UsersProfileUploadProcAction();
 		}
 		return null;
 	}

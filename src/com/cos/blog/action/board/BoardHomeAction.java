@@ -25,7 +25,6 @@ public class BoardHomeAction implements Action{
 				BoardRepository.getInstance();
 		
 		
-		
 		//2. 3건만 페이징하여 가져오기
 		List<Board> boards = boardRepository.findAll(page);
 		
@@ -39,7 +38,7 @@ public class BoardHomeAction implements Action{
 		
 		request.setAttribute("boards", boards);
 		
-		int result = boardRepository.findBoard();
+		int result = boardRepository.findBoardCount();
 		//System.out.println("BoardHomeAction : result: "+result);
 		
 		

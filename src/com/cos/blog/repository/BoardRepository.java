@@ -27,8 +27,8 @@ public class BoardRepository {
 	private ResultSet rs = null;
 	
 	
-	public int findBoard(String keyword) {
-		int result2 = 0;
+	public int findBoardCount(String keyword) {
+		int result = 0;
 		final String SQL ="SELECT count(*) FROM board WHERE title Like ? OR content Like ?";
 		
 		try {
@@ -43,13 +43,13 @@ public class BoardRepository {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				result2 = rs.getInt(1);  
-				System.out.println("result2 : "+result2);
+				result = rs.getInt(1);  
+				System.out.println("result2 : "+result);
 			
 			}
 			
 			
-			return result2;
+			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(TAG+"findBoard(keyword) : "+e.getMessage());
@@ -140,7 +140,7 @@ public class BoardRepository {
 			return -1;
 		}
 	
-	public int findBoard() {
+	public int findBoardCount() {
 		int result = 0;
 		final String SQL ="SELECT count(*) FROM board";
 		

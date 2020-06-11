@@ -21,7 +21,9 @@
 
 	<div class="col-md-12 m-2">
 		<form class="form-inline justify-content-end" action="/blog/board">
-			<input type="hidden" name="cmd" value="search"> <input type="hidden" name="page" value="0"> <input class="form-control mr-sm-2" name="keyword" type="text" placeholder="Search">
+			<input type="hidden" name="cmd" value="search"> 
+			<input type="hidden" name="page" value="0"> 
+			<input class="form-control mr-sm-2" name="keyword" type="text" placeholder="Search">
 			<button class="btn btn-danger" type="submit">검색</button>
 		</form>
 	</div>
@@ -43,7 +45,6 @@
 		<c:when test="${empty param.keyword}">
 			<c:set var="pageNext" value="/blog/board?cmd=home&page=${param.page+1}" />
 			<c:set var="pagePrevious" value="/blog/board?cmd=home&page=${param.page-1}" />
-			
 		</c:when>
 		<c:otherwise>
 			<c:set var="pageNext" value="/blog/board?cmd=search&page=${param.page+1}&keyword=${param.keyword}" />
@@ -64,9 +65,6 @@
 
 		<c:choose>
 			<c:when test="${(param.page*3)+3 >= result}">
-				<li class="page-item disabled"><a class="page-link" href="${pageScope.pageNext}">Next</a></li>
-			</c:when>
-			<c:when test="${(param.page*3)+3 >= result2}">
 				<li class="page-item disabled"><a class="page-link" href="${pageScope.pageNext}">Next</a></li>
 			</c:when>
 			<c:otherwise>
