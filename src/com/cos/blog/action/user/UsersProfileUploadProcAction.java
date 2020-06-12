@@ -15,9 +15,12 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class UsersProfileUploadProcAction implements Action{
-
+	private static final String TAG = "UsersProfileUploadProcAction : ";
+	
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 //		InputStream in = request.getInputStream();
 //		BufferedReader br = new BufferedReader(new InputStreamReader(in, "utf-8"));
 //		StringBuilder sb = new StringBuilder();
@@ -25,20 +28,20 @@ public class UsersProfileUploadProcAction implements Action{
 //		while((input = br.readLine()) != null) {
 //			sb.append(input);
 //		}
-//		System.out.println("--------------------사진 받았음 !!!!!!!!!!!!!!!!!!!!!");
-//		System.out.println(sb.toString());
+//		System.out.println(TAG+"--------------------사진 받았음 !!!!!!!!!!!!!!!!!!!!!");
+//		System.out.println(TAG+sb.toString());
 //		Script.outText("테스트 중이야!!!", response);
 		
 		String realPath = request.getServletContext().getRealPath("image"); //
-		System.out.println(request.getServletContext());
+		//System.out.println(TAG+request.getServletContext());
 		
 		int id;
 		String fileName = null;
 		String contextPath = request.getServletContext().getContextPath();
 		String userProfile = null; //DB에 들어갈 변수 : 위치
 		
-		System.out.println("realPath : " + realPath);
-		System.out.println("contextPath : "+ contextPath);
+		//System.out.println(TAG+"realPath : " + realPath);
+		//System.out.println(TAG+"contextPath : "+ contextPath);
 		
 		
 		try {
@@ -51,7 +54,7 @@ public class UsersProfileUploadProcAction implements Action{
 							new DefaultFileRenamePolicy()
 					);
 			fileName = multi.getFilesystemName("userProfile");
-			System.out.println("fileName : "+fileName);
+			System.out.println(TAG+"fileName : "+fileName);
 
 			id = Integer.parseInt(multi.getParameter("id"));
 				

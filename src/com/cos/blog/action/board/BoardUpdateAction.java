@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cos.blog.action.Action;
+import com.cos.blog.dto.BoardResponseDto;
 import com.cos.blog.dto.DetailResponseDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.repository.BoardRepository;
@@ -28,10 +29,11 @@ public class BoardUpdateAction implements Action{
 		
 		int id = Integer.parseInt(request.getParameter("id")); //request.getparameter 는 string
 		BoardRepository boardRepository = BoardRepository.getInstance();
-		DetailResponseDto dto = boardRepository.findById(id);
 		
-		if(dto != null) {
-			request.setAttribute("dto", dto);
+		BoardResponseDto boardDto = boardRepository.findById(id);
+		
+		if(boardDto != null) {
+			request.setAttribute("boardDto", boardDto);
 			RequestDispatcher dis = request.getRequestDispatcher("board/update.jsp");
 			dis.forward(request, response);
 		} else {
