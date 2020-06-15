@@ -73,6 +73,8 @@ public class BoardDetailAction implements Action {
 			
 			
 			if (detailDto != null) {
+				
+				//유튜브 파싱
 				String content = boardDto.getBoard().getContent();
 				preview = HtmlParser.getYoutubePreview(content);
 				detailDto.getBoardDto().getBoard().setContent(preview);

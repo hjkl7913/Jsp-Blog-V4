@@ -26,17 +26,23 @@ public class ReplyRepository {
 	private ResultSet rs = null;
 	
 	public int save(Reply reply) {
-		final String SQL ="";
+		final String SQL ="INSERT INTO reply(id, userId, boardId, content, createDate) VALUES(REPLY_SEQ.nextval,?,?,?,sysdate)";
 		
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
+			
 			// 물음표 완성하기
+			pstmt.setInt(1, reply.getUserId());
+			pstmt.setInt(2, reply.getBoardId());
+			pstmt.setString(3, reply.getContent());
+			
 			
 			return pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(TAG+"save : "+e.getMessage());
+			System.out.println(TAG+"save(reply) : "+e.getMessage());
 			
 		} finally {
 			DBConn.close(conn, pstmt);
@@ -66,12 +72,14 @@ public class ReplyRepository {
 	}
 	
 	public int deleteById(int id) {
-		final String SQL ="";
+		final String SQL ="DELETE FROM reply WHERE id = ?";
 		
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			// 물음표 완성하기
+			pstmt.setInt(1, id);
+			
 			
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
